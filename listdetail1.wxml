@@ -1,0 +1,180 @@
+<!--index.wxml-->
+<!--<form bindsubmit="formSubmit2">
+<!--提交按钮  --
+<input type="text" name="id" placeholder='输入关键词' style='border:1px solid #ccc;height:30px;width: 80%;'/>
+<button formType="submit" class="qq">搜索</button>    
+</form>-->
+<input type="text"  placeholder="输入关键词"  bindblur="formSubmit2"style='border:1px solid #ccc;'/>
+
+<icon class="ww"type="search" color="blue" size="20"></icon>
+
+   <view class="item-content tc box"> <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+ 搜索结果
+      <view class="{{item}}"  wx:for="{{cai}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text>
+        <icon bindtap="handleCollection"type="{{item.status ? 'success' : 'circle'}}" color="skyblue" size="20"data-dish="{{item.id}}"data-ti="{{item.title}}" data-index="{{index}}"data-cindex="{{cindex}}"></icon><!--//其实能改，根本不用index只能改成其他图片了，靠提示-->
+        <text class="{{item.active ? 'btn active' : 'btn'}}" data-id="{{item.id}}" data-index="{{index}}"data-cindex="{{cindex}}">添加</text><!--index有用-->
+      
+    </view>  </view>   </view>  
+
+
+
+<view class="tabTit tc box  bg_f">
+<view class="flex1{{tab[index]?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
+<text>{{item}}</text>
+<image wx:if="{{index === tabTxt.length-1}}" src="/images/zan.png"></image>
+</view>
+</view>
+
+<view >
+
+<view class="container"hidden="{{!tabFlag0}}" >
+                            
+  <view class="aside">
+    <view class="{{tabIndex === index ? 'menu active' : 'menu'}}" wx:for="{{menus}}" wx:key="{{item.id}}" data-index="{{index}}"data-id="{{item.id}}" bindtap='tabMenu'>{{item.menu}}
+    </view>
+  </view>
+  <view class="item-content">
+    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+      <view class="item"  wx:for="{{items[cindex]}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text>
+        <icon bindtap="handleCollection"type="{{item.status ? 'success' : 'circle'}}" color="skyblue" size="20"data-dish="{{item.id}}"data-ti="{{item.title}}" data-index="{{index}}"data-cindex="{{cindex}}"></icon>
+        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}"data-cindex="{{cindex}}">添加</text>
+      </view>
+    </view>
+  </view>
+  <view class="{{bottomFlag ? 'bottom-bar' : 'bottom-bar hidden'}}">
+    <view class="count">
+        共 <text class="num">{{orderCount.num}} 件</text>     
+        合计 <text class="num">{{orderCount.money}} 元</text> 
+    </view>
+    <view class="btn">
+        <text bindtap='card'>购物车</text>
+    </view>
+  </view>
+</view></view>
+
+<view class="container" hidden="{{!tabFlag1}}">
+    <view class="aside">
+     <view class="{{tabIndex === index ? 'menu active' : 'menu'}}" wx:for="{{menus1}}" wx:key="{{item.id}}" data-index="{{index}}"data-id="{{item.id}}" bindtap='tabMenu'>{{item.menu}}
+      </view>
+    </view>
+  <view class="item-content">
+    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+      <view class="item"  wx:for="{{itemser[cindex]}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text><icon bindtap="handleCollection"type="{{item.status ? 'success' : 'circle'}}" color="skyblue" size="20"data-dish="{{item.id}}"data-ti="{{item.title}}" data-index="{{index}}"data-cindex="{{cindex}}"></icon>
+        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}"data-cindex2="{{cindex}}">添加</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="container" hidden="{{!tabFlag2}}">
+    <view class="aside">
+     <view class="{{tabIndex === index ? 'menu active' : 'menu'}}" wx:for="{{menus0}}" wx:key="{{item.id}}" data-index="{{index}}"data-id="{{item.id}}" bindtap='tabMenu'>{{item.menu}}
+      </view>
+    </view>
+  <view class="item-content">
+    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+      <view class="item"  wx:for="{{items0[cindex]}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text>
+        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}"data-cindex2="{{cindex}}">添加</text>
+      </view>
+    </view>
+  </view>
+  <view class="{{bottomFlag ? 'bottom-bar' : 'bottom-bar hidden'}}">
+    <view class="count">
+        共 <text class="num">{{orderCount.num}} 件</text>     
+        合计 <text class="num">{{orderCount.money}} 元</text> 
+    </view>
+    <view class="btn">
+        <text bindtap='card'>购物车</text>
+    </view>
+  </view>
+</view>
+
+<view class="container" hidden="{{!tabFlag3}}">
+    <view class="aside">
+     <view class="{{tabIndex === index ? 'menu active' : 'menu'}}" wx:for="{{menus0}}" wx:key="{{item.id}}" data-index="{{index}}"data-id="{{item.id}}" bindtap='tabMenu'>{{item.menu}}
+      </view>
+    </view>
+  <view class="item-content">
+    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+      <view class="item"  wx:for="{{items0[cindex]}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text>
+        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}"data-cindex3="{{cindex}}">添加</text>
+      </view>
+    </view>
+  </view>
+  <view class="{{bottomFlag ? 'bottom-bar' : 'bottom-bar hidden'}}">
+    <view class="count">
+        共 <text class="num">{{orderCount.num}} 件</text>     
+        合计 <text class="num">{{orderCount.money}} 元</text> 
+    </view>
+    <view class="btn">
+        <text bindtap='card'>购物车</text>
+    </view>
+  </view>
+</view>
+
+<view class="container" hidden="{{!tabFlag4}}">
+    <view class="aside">
+     <view class="{{tabIndex === index ? 'menu active' : 'menu'}}" wx:for="{{menus0}}" wx:key="{{item.id}}" data-index="{{index}}"data-id="{{item.id}}" bindtap='tabMenu'>{{item.menu}}
+      </view>
+    </view>
+  <view class="item-content">
+    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+      <view class="item"  wx:for="{{items0[cindex]}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text>
+        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}"data-cindex4="{{cindex}}">添加</text>
+      </view>
+    </view>
+  </view>
+  <view class="{{bottomFlag ? 'bottom-bar' : 'bottom-bar hidden'}}">
+    <view class="count">
+        共 <text class="num">{{orderCount.num}} 件</text>     
+        合计 <text class="num">{{orderCount.money}} 元</text> 
+    </view>
+    <view class="btn">
+        <text bindtap='card'>购物车</text>
+    </view>
+  </view>
+</view>
+<!-->
+<view class="container" hidden="{{!tabFlag5}}">
+    <view class="aside">
+     <view class="{{tabIndex === index ? 'menu active' : 'menu'}}" wx:for="{{menus0}}" wx:key="{{item.id}}" data-index="{{index}}"data-id="{{item.id}}" bindtap='tabMenu'>{{item.menu}}
+      </view>
+    </view>
+  <view class="item-content">
+    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
+      <view class="item"  wx:for="{{items0[cindex]}}" >
+        <image src="{{item.src}}"></image>
+        <text class="title">{{item.title}}</text>
+        <text class="price">￥ {{item.price}} 元</text>
+        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}"data-cindex5="{{cindex}}">添加</text>
+      </view>
+    </view>
+  </view>
+  <view class="{{bottomFlag ? 'bottom-bar' : 'bottom-bar hidden'}}">
+    <view class="count">
+        共 <text class="num">{{orderCount.num}} 件</text>     
+        合计 <text class="num">{{orderCount.money}} 元</text> 
+    </view>
+    <view class="btn">
+        <text bindtap='card'>购物车</text>
+    </view>
+  </view>
+</view>-->
